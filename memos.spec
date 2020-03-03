@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['memos.py'],
-             pathex=['D:\\Feci\\RebbleMemos'],
+             pathex=[],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -15,12 +15,12 @@ a = Analysis(['memos.py'],
              win_private_assemblies=False,
              cipher=block_cipher,
              noarchive=False)
-a.datas += [('HOTEL_RESERVATION.png','D:\\Feci\\RebbleMemos\\assets\\HOTEL_RESERVATION.png', "DATA")]
-a.datas += [('NOTIFICATION_FLAG.png','D:\\Feci\\RebbleMemos\\assets\\NOTIFICATION_FLAG.png', "DATA")]
-a.datas += [('NOTIFICATION_GENERIC.png','D:\\Feci\\RebbleMemos\\assets\\NOTIFICATION_GENERIC.png', "DATA")]
-a.datas += [('NOTIFICATION_REMINDER.png','D:\\Feci\RebbleMemos\\assets\\NOTIFICATION_REMINDER.png', "DATA")]
-a.datas += [('SCHEDULED_EVENT.png','D:\\Feci\\RebbleMemos\\assets\\SCHEDULED_EVENT.png', "DATA")]
-a.datas += [('memo.ico','D:\\Feci\\RebbleMemos\\memo.ico', "DATA")]
+a.datas += [('HOTEL_RESERVATION.png','assets\\HOTEL_RESERVATION.png', "DATA")]
+a.datas += [('NOTIFICATION_FLAG.png','assets\\NOTIFICATION_FLAG.png', "DATA")]
+a.datas += [('NOTIFICATION_GENERIC.png','assets\\NOTIFICATION_GENERIC.png', "DATA")]
+a.datas += [('NOTIFICATION_REMINDER.png','assets\\NOTIFICATION_REMINDER.png', "DATA")]
+a.datas += [('SCHEDULED_EVENT.png','assets\\SCHEDULED_EVENT.png', "DATA")]
+a.datas += [('memo.ico','memo.ico', "DATA")]
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,
