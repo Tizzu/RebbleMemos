@@ -20,7 +20,7 @@ You can run the code without creating an .exe file, but unfortunately it won't s
 
 ***
 ### Usage
-**Before using this application you have to retreive your Pebble timeline token** (you can install [this watchapp](https://apps.rebble.io/en_US/application/5d9ac26dc393f54d6b5f5445) on your Pebble - or search for "Generate Token" on the Rebble Store - and follow the instructions to get it and put it inside "token.txt"
+**Before using this application you have to retreive your Pebble timeline token** (you can install [this watchapp](https://apps.rebble.io/en_US/application/5d9ac26dc393f54d6b5f5445) on your Pebble - or search for "Generate Token" on the Rebble Store - and follow the instructions to get it and put it inside "token.txt")
 
 Once it's there you can open the application and start sending pins!
 ***
