@@ -1,7 +1,7 @@
 # Rebble Memos
 This Application lets you push custom memos to a Rebble-enabled Pebble smartwatch
 
-The application lets you define a title for your memo, a subtitle (visible from the timeline) and a body (visible within the pin itself). You can also define a time and date, and also select the Memo icon from a selection of 5 icons (for now).
+The application lets you define a title for your memo, a subtitle (visible from the timeline) and a body (visible within the pin itself). You can also define a time and date, and also select the Memo icon from a selection of built-in Pebble icons.
 ***
 ### Build and compile
 This project makes use of the "requests" and "PyQt5" modules, you can install them by issuing
@@ -27,4 +27,4 @@ Once it's there you can open the application and start sending pins!
 ### Future releases (may) include:
 - [ ] **Pin History** - Modify already sent pins (as long as they aren't deleted by the user)
 - [ ] **More Layouts** - implement all the layouts available inside the system (CalendarPin, WeatherPin, SportsPin, GenericNotification)
-- [ ] **More Icons** - Let the user decide from a wider selection of built-in icons
+- [x] **More Icons** - Let the user decide from a wider selection of built-in icons
