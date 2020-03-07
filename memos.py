@@ -14,9 +14,75 @@ from PyQt5.QtWidgets import QMessageBox
 import functions
 import os
 
+iconsList = [
+    "NOTIFICATION_REMINDER",
+    "ALARM_CLOCK",
+    "AMERICAN_FOOTBALL",
+    "AUDIO_CASSETTE",
+    "BASKETBALL",
+    "BIRTHDAY_EVENT",
+    "CAR_RENTAL",
+    "CHECK_INTERNET_CONNECTION",
+    "CLOUDY_DAY",
+    "CRICKET_GAME",
+    "DAY_SEPARATOR",
+    "DINNER_RESERVATION",
+    "DISMISSED_PHONE_CALL",
+    "DURING_PHONE_CALL",
+    "DURING_PHONE_CALL_CENTERED",
+    "GENERIC_CONFIRMATION",
+    "GENERIC_EMAIL",
+    "GENERIC_QUESTION",
+    "GENERIC_SMS",
+    "GENERIC_WARNING",
+    "GLUCOSE_MONITOR",
+    "HEAVY_RAIN",
+    "HEAVY_SNOW",
+    "HOCKEY_GAME",
+    "HOTEL_RESERVATION",
+    "INCOMING_PHONE_CALL",
+    "LIGHT_RAIN",
+    "LIGHT_SNOW",
+    "LOCATION",
+    "MOVIE_EVENT",
+    "MUSIC_EVENT",
+    "NEWS_EVENT",
+    "NOTIFICATION_FLAG",
+    "NOTIFICATION_GENERIC",
+    "NOTIFICATION_LIGHTHOUSE",
+    "NO_EVENTS",
+    "PARTLY_CLOUDY",
+    "PAY_BILL",
+    "RADIO_SHOW",
+    "RAINING_AND_SNOWING",
+    "REACHED_FITNESS_GOAL",
+    "RESULT_DELETED",
+    "RESULT_DISMISSED",
+    "RESULT_FAILED",
+    "RESULT_MUTE",
+    "RESULT_SENT",
+    "SCHEDULED_EVENT",
+    "SCHEDULED_FLIGHT",
+    "SETTINGS",
+    "SOCCER_GAME",
+    "STOCKS_EVENT",
+    "SUNRISE",
+    "SUNSET",
+    "TIDE_IS_HIGH",
+    "TIMELINE_BASEBALL",
+    "TIMELINE_CALENDAR",
+    "TIMELINE_MISSED_CALL",
+    "TIMELINE_SPORTS",
+    "TIMELINE_SUN",
+    "TIMELINE_WEATHER",
+    "TV_SHOW",
+    "WATCH_DISCONNECTED"
+]
+
 
 # This function is needed in order to display images inside the application once it's packaged into an executable
 # Unfortunately this means losing the ability to display images if it's not (as far as I've tested)
+# Thanks Internet for this snippet! (Multiple sites showed this function so I don't know who's the first)
 def resource_path(relative_path):
     try:
         base_path = sys._MEIPASS
@@ -122,68 +188,6 @@ class Ui_MainWindow(object):
         self.iconLabel.setFont(font)
         self.iconLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.iconLabel.setObjectName("iconLabel")
-        self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(110, 280, 246, 51))
-        self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout.setObjectName("horizontalLayout")
-        self.NOTIFICATION_REMINDER = QtWidgets.QRadioButton(self.horizontalLayoutWidget)
-        self.NOTIFICATION_REMINDER.setText("")
-        self.NOTIFICATION_REMINDER.setChecked(True)
-        self.NOTIFICATION_REMINDER.setObjectName("NOTIFICATION_REMINDER")
-        self.NOTIFICATION_REMINDER.clicked.connect(self.setIcon)
-        self.horizontalLayout.addWidget(self.NOTIFICATION_REMINDER)
-        self.REMINDERimage = QtWidgets.QLabel(self.horizontalLayoutWidget)
-        self.REMINDERimage.setText("")
-        # NOTE: Manually changed to resource_path()
-        self.REMINDERimage.setPixmap(QtGui.QPixmap(resource_path("NOTIFICATION_REMINDER.png")))
-        self.REMINDERimage.setObjectName("REMINDERimage")
-        self.horizontalLayout.addWidget(self.REMINDERimage)
-        self.NOTIFICATION_GENERIC = QtWidgets.QRadioButton(self.horizontalLayoutWidget)
-        self.NOTIFICATION_GENERIC.setText("")
-        self.NOTIFICATION_GENERIC.setObjectName("NOTIFICATION_GENERIC")
-        self.NOTIFICATION_GENERIC.clicked.connect(self.setIcon)
-        self.horizontalLayout.addWidget(self.NOTIFICATION_GENERIC)
-        self.GENERICimage = QtWidgets.QLabel(self.horizontalLayoutWidget)
-        self.GENERICimage.setText("")
-        # NOTE: Manually changed to resource_path()
-        self.GENERICimage.setPixmap(QtGui.QPixmap(resource_path("NOTIFICATION_GENERIC.png")))
-        self.GENERICimage.setObjectName("GENERICimage")
-        self.horizontalLayout.addWidget(self.GENERICimage)
-        self.NOTIFICATION_FLAG = QtWidgets.QRadioButton(self.horizontalLayoutWidget)
-        self.NOTIFICATION_FLAG.setText("")
-        self.NOTIFICATION_FLAG.setObjectName("NOTIFICATION_FLAG")
-        self.NOTIFICATION_FLAG.clicked.connect(self.setIcon)
-        self.horizontalLayout.addWidget(self.NOTIFICATION_FLAG)
-        self.FLAGimage = QtWidgets.QLabel(self.horizontalLayoutWidget)
-        self.FLAGimage.setText("")
-        # NOTE: Manually changed to resource_path()
-        self.FLAGimage.setPixmap(QtGui.QPixmap(resource_path("NOTIFICATION_FLAG.png")))
-        self.FLAGimage.setObjectName("FLAGimage")
-        self.horizontalLayout.addWidget(self.FLAGimage)
-        self.SCHEDULED_EVENT = QtWidgets.QRadioButton(self.horizontalLayoutWidget)
-        self.SCHEDULED_EVENT.setText("")
-        self.SCHEDULED_EVENT.setObjectName("SCHEDULED_EVENT")
-        self.SCHEDULED_EVENT.clicked.connect(self.setIcon)
-        self.horizontalLayout.addWidget(self.SCHEDULED_EVENT)
-        self.SCHEDULEimage = QtWidgets.QLabel(self.horizontalLayoutWidget)
-        self.SCHEDULEimage.setText("")
-        # NOTE: Manually changed to resource_path()
-        self.SCHEDULEimage.setPixmap(QtGui.QPixmap(resource_path("SCHEDULED_EVENT.png")))
-        self.SCHEDULEimage.setObjectName("SCHEDULEimage")
-        self.horizontalLayout.addWidget(self.SCHEDULEimage)
-        self.HOTEL_RESERVATION = QtWidgets.QRadioButton(self.horizontalLayoutWidget)
-        self.HOTEL_RESERVATION.setText("")
-        self.HOTEL_RESERVATION.setObjectName("HOTEL_RESERVATION")
-        self.HOTEL_RESERVATION.clicked.connect(self.setIcon)
-        self.horizontalLayout.addWidget(self.HOTEL_RESERVATION)
-        self.HOTELimage = QtWidgets.QLabel(self.horizontalLayoutWidget)
-        self.HOTELimage.setText("")
-        # NOTE: Manually changed to resource_path()
-        self.HOTELimage.setPixmap(QtGui.QPixmap(resource_path("HOTEL_RESERVATION.png")))
-        self.HOTELimage.setObjectName("HOTELimage")
-        self.horizontalLayout.addWidget(self.HOTELimage)
         self.comingSoonSub = QtWidgets.QLabel(self.centralwidget)
         self.comingSoonSub.setGeometry(QtCore.QRect(450, 244, 221, 40))
         font = QtGui.QFont()
@@ -192,22 +196,31 @@ class Ui_MainWindow(object):
         self.comingSoonSub.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop)
         self.comingSoonSub.setWordWrap(True)
         self.comingSoonSub.setObjectName("comingSoonSub")
+        self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(110, 290, 321, 31))
+        self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
+        self.iconBox = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
+        self.iconBox.setContentsMargins(0, 0, 0, 0)
+        self.iconBox.setObjectName("iconBox")
+        self.iconSelector = QtWidgets.QComboBox(self.horizontalLayoutWidget)
+        self.iconSelector.setEditable(True)
+        self.iconSelector.setObjectName("iconSelector")
+        self.iconSelector.addItems(iconsList)
+        self.iconSelector.currentIndexChanged.connect(self.changeIconShow)
+        self.iconBox.addWidget(self.iconSelector)
+        self.iconShow = QtWidgets.QLabel(self.horizontalLayoutWidget)
+        self.iconShow.setMaximumSize(QtCore.QSize(25, 25))
+        self.iconShow.setText("")
+        self.iconShow.setPixmap(QtGui.QPixmap(resource_path("NOTIFICATION_REMINDER.png")))
+        self.iconShow.setObjectName("iconShow")
+        self.iconBox.addWidget(self.iconShow)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def setIcon(self):
-        if self.NOTIFICATION_REMINDER.isChecked():
-            return "NOTIFICATION_REMINDER"
-        elif self.NOTIFICATION_GENERIC.isChecked():
-            return "NOTIFICATION_GENERIC"
-        elif self.NOTIFICATION_FLAG.isChecked():
-            return "NOTIFICATION_FLAG"
-        elif self.SCHEDULED_EVENT.isChecked():
-            return "SCHEDULED_EVENT"
-        else:
-            return "HOTEL_RESERVATION"
+    def changeIconShow(self):
+        self.iconShow.setPixmap(QtGui.QPixmap(resource_path(self.iconSelector.currentText() + ".png")))
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -245,10 +258,10 @@ class Ui_MainWindow(object):
             expected.setOffsetFromUtc(offset)
 
             functions.sendToTimeline(self.titleEdit.text(),
-                                     self.subtitleEdit.toPlainText(),
-                                     self.bodyEdit.toPlainText(),
-                                     expected.toTimeSpec(Qt.OffsetFromUTC),
-                                     self.setIcon())
+                           self.subtitleEdit.toPlainText(),
+                           self.bodyEdit.toPlainText(),
+                           expected.toTimeSpec(Qt.OffsetFromUTC),
+                           self.iconSelector.currentText())
 
 
 if __name__ == "__main__":

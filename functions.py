@@ -32,12 +32,12 @@ def sendToTimeline(title, subtitle, body, time, icon):
     # Header for the Timeline servers (it's not JSON)
     header = {'Content-Type': 'application/json',
               'X-User-Token': token}
-    #This variable will become a JSON string, ready to be sent to the servers
+    # This variable will become a JSON string, ready to be sent to the servers
     # the "time" field is built like this since it gives the local time with timezone 0 (instead of +01:00 or similar
     data = {
         "id": pinID,
-        "time": "" + str(time.date().year()) + "-" + str(time.date().month()) + "-" + str(
-            time.date().day()) + "T" + str(time.time().hour()) + ":" + str(time.time().minute()) + ":00Z",
+        "time": str(time.date().year()) + "-" + leadingZero(time.date().month()) + "-" + leadingZero(
+            time.date().day()) + "T" + leadingZero(time.time().hour()) + ":" + leadingZero(time.time().minute()) + ":00Z",
         "layout": {
             "type": "genericPin",
             "title": title,
@@ -53,10 +53,20 @@ def sendToTimeline(title, subtitle, body, time, icon):
         alert.setText('Memo sent successfully! \nIts ID is ' + pinID)
         alert.exec_()
     else:
+        print(data)
+        print(response)
         alert = QMessageBox()
         alert.setWindowTitle('Rebble Memos')
         alert.setText('Something went wrong, Try again. \n Error code:' + str(response.status_code))
         alert.exec_()
+
+# Since I didn't find anything about adding a leading zero via library functions/parameters I've made a quick number
+#to String converted where needed (Hours, Minutes, Days, Months)
+def leadingZero(number):
+    if 0 <= number <= 9:
+        return "0" + str(number)
+    else:
+        return str(number)
 
 
 # If you need to test your pin data without bothering the servers you can substitute sendToTimeline() inside memos.py with
@@ -65,8 +75,9 @@ def sendToTimeline(title, subtitle, body, time, icon):
 def test(title, subtitle, body, time, icon):
     data2 = {
         "id": "pinID",
-        "time": "" + str(time.date().year()) + "-" + str(time.date().month()) + "-" + str(
-            time.date().day()) + "T" + str(time.time().hour()) + ":" + str(time.time().minute()) + ":00Z",
+        "time": "" + str(time.date().year()) + "-" + leadingZero(time.date().month()) + "-" + leadingZero(
+            time.date().day()) + "T" + leadingZero(time.time().hour()) + ":" + leadingZero(
+            time.time().minute()) + ":00Z",
         "layout": {
             "type": "genericPin",
             "title": title,
@@ -79,6 +90,7 @@ def test(title, subtitle, body, time, icon):
     alert = QMessageBox()
     alert.setWindowTitle('Rebble Memos')
     alert.setText("Title: " + title + "\nSubtitle: " + subtitle + "\nBody: " + body + "\nTime/Date: " + str(
-        time.date().year()) + "-" + str(time.date().month()) + "-" + str(time.date().day()) + "T" + str(
-        time.time().hour()) + ":" + str(time.time().minute()) + ":00Z" + "\nIcon: " + icon)
+        time.date().year()) + "-" + leadingZero(time.date().month()) + "-" + leadingZero(
+        time.date().day()) + "T" + leadingZero(time.time().hour()) + ":" + leadingZero(
+        time.time().minute()) + ":00Z" + "\nIcon: " + icon)
     alert.exec_()

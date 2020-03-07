@@ -27,4 +27,4 @@ Once it's there you can open the application and start sending pins!
 ### Future releases (may) include:
 - [ ] **Pin History** - Modify already sent pins (as long as they aren't deleted by the user)
 - [ ] **More Layouts** - implement all the layouts available inside the system (CalendarPin, WeatherPin, SportsPin, GenericNotification)
-- [ ] **More Icons** - Let the user decide from a wider selection of built-in icons
+- [x] **More Icons** - Let the user decide from a wider selection of built-in icons
