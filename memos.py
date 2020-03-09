@@ -14,6 +14,8 @@ from PyQt5.QtWidgets import QMessageBox
 import functions
 import os
 
+# Commented entries aren't showing the same icon as displayed in the Wiki so they can't be displayed here
+# I'm leaving them here for code completeness but they haven't an icon in the assets anymore
 iconsList = [
     "NOTIFICATION_REMINDER",
     "ALARM_CLOCK",
@@ -22,18 +24,18 @@ iconsList = [
     "BASKETBALL",
     "BIRTHDAY_EVENT",
     "CAR_RENTAL",
-    "CHECK_INTERNET_CONNECTION",
+    # "CHECK_INTERNET_CONNECTION",
     "CLOUDY_DAY",
     "CRICKET_GAME",
-    "DAY_SEPARATOR",
+    # "DAY_SEPARATOR",
     "DINNER_RESERVATION",
     "DISMISSED_PHONE_CALL",
-    "DURING_PHONE_CALL",
-    "DURING_PHONE_CALL_CENTERED",
+    # "DURING_PHONE_CALL",
+    # "DURING_PHONE_CALL_CENTERED",
     "GENERIC_CONFIRMATION",
     "GENERIC_EMAIL",
     "GENERIC_QUESTION",
-    "GENERIC_SMS",
+    # "GENERIC_SMS",
     "GENERIC_WARNING",
     "GLUCOSE_MONITOR",
     "HEAVY_RAIN",
@@ -50,17 +52,17 @@ iconsList = [
     "NOTIFICATION_FLAG",
     "NOTIFICATION_GENERIC",
     "NOTIFICATION_LIGHTHOUSE",
-    "NO_EVENTS",
+    # "NO_EVENTS",
     "PARTLY_CLOUDY",
     "PAY_BILL",
     "RADIO_SHOW",
     "RAINING_AND_SNOWING",
     "REACHED_FITNESS_GOAL",
-    "RESULT_DELETED",
+    # "RESULT_DELETED",
     "RESULT_DISMISSED",
     "RESULT_FAILED",
-    "RESULT_MUTE",
-    "RESULT_SENT",
+    # "RESULT_MUTE",
+    # "RESULT_SENT",
     "SCHEDULED_EVENT",
     "SCHEDULED_FLIGHT",
     "SETTINGS",
@@ -76,7 +78,7 @@ iconsList = [
     "TIMELINE_SUN",
     "TIMELINE_WEATHER",
     "TV_SHOW",
-    "WATCH_DISCONNECTED"
+    # "WATCH_DISCONNECTED"
 ]
 
 
@@ -128,21 +130,208 @@ class Ui_MainWindow(object):
         self.line.setFrameShape(QtWidgets.QFrame.VLine)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
-        self.subtitleLabel = QtWidgets.QLabel(self.centralwidget)
-        self.subtitleLabel.setGeometry(QtCore.QRect(10, 50, 101, 41))
+        self.comingSoon = QtWidgets.QLabel(self.centralwidget)
+        self.comingSoon.setGeometry(QtCore.QRect(450, 149, 221, 101))
+        font = QtGui.QFont()
+        font.setPointSize(25)
+        font.setBold(False)
+        font.setWeight(50)
+        self.comingSoon.setFont(font)
+        self.comingSoon.setAlignment(QtCore.Qt.AlignCenter)
+        self.comingSoon.setObjectName("comingSoon")
+        self.comingSoonSub = QtWidgets.QLabel(self.centralwidget)
+        self.comingSoonSub.setGeometry(QtCore.QRect(450, 244, 221, 40))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.comingSoonSub.setFont(font)
+        self.comingSoonSub.setAlignment(QtCore.Qt.AlignCenter)
+        self.comingSoonSub.setWordWrap(True)
+        self.comingSoonSub.setObjectName("comingSoonSub")
+        self.calendarPin = QtWidgets.QTabWidget(self.centralwidget)
+        self.calendarPin.setGeometry(QtCore.QRect(20, 10, 421, 361))
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(240, 240, 240))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Light, brush)
+        brush = QtGui.QBrush(QtGui.QColor(247, 247, 247))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Midlight, brush)
+        brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Dark, brush)
+        brush = QtGui.QBrush(QtGui.QColor(160, 160, 160))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Mid, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.BrightText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(240, 240, 240))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Shadow, brush)
+        brush = QtGui.QBrush(QtGui.QColor(247, 247, 247))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.AlternateBase, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 220))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ToolTipBase, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ToolTipText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 128))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.PlaceholderText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(240, 240, 240))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Light, brush)
+        brush = QtGui.QBrush(QtGui.QColor(247, 247, 247))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Midlight, brush)
+        brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Dark, brush)
+        brush = QtGui.QBrush(QtGui.QColor(160, 160, 160))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Mid, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.BrightText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(240, 240, 240))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Shadow, brush)
+        brush = QtGui.QBrush(QtGui.QColor(247, 247, 247))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.AlternateBase, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 220))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ToolTipBase, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ToolTipText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 128))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.PlaceholderText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(240, 240, 240))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Light, brush)
+        brush = QtGui.QBrush(QtGui.QColor(247, 247, 247))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Midlight, brush)
+        brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Dark, brush)
+        brush = QtGui.QBrush(QtGui.QColor(160, 160, 160))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Mid, brush)
+        brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.BrightText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(240, 240, 240))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(240, 240, 240))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Shadow, brush)
+        brush = QtGui.QBrush(QtGui.QColor(240, 240, 240))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.AlternateBase, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 220))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ToolTipBase, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ToolTipText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 128))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
+        self.calendarPin.setPalette(palette)
+        self.calendarPin.setAutoFillBackground(True)
+        self.calendarPin.setTabPosition(QtWidgets.QTabWidget.North)
+        self.calendarPin.setTabShape(QtWidgets.QTabWidget.Rounded)
+        self.calendarPin.setUsesScrollButtons(True)
+        self.calendarPin.setDocumentMode(True)
+        self.calendarPin.setObjectName("calendarPin")
+        self.genericPin = QtWidgets.QWidget()
+        self.genericPin.setObjectName("genericPin")
+        self.formLayoutWidget = QtWidgets.QWidget(self.genericPin)
+        self.formLayoutWidget.setGeometry(QtCore.QRect(10, 10, 391, 311))
+        self.formLayoutWidget.setObjectName("formLayoutWidget")
+        self.genericPinLayout = QtWidgets.QFormLayout(self.formLayoutWidget)
+        self.genericPinLayout.setContentsMargins(0, 0, 0, 0)
+        self.genericPinLayout.setObjectName("genericPinLayout")
+        self.titleLabel = QtWidgets.QLabel(self.formLayoutWidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.titleLabel.sizePolicy().hasHeightForWidth())
+        self.titleLabel.setSizePolicy(sizePolicy)
+        self.titleLabel.setMinimumSize(QtCore.QSize(82, 0))
         font = QtGui.QFont()
         font.setPointSize(8)
         font.setBold(True)
         font.setWeight(75)
-        self.subtitleLabel.setFont(font)
-        self.subtitleLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.subtitleLabel.setWordWrap(True)
-        self.subtitleLabel.setObjectName("subtitleLabel")
-        self.subtitleEdit = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.subtitleEdit.setGeometry(QtCore.QRect(110, 60, 321, 51))
+        self.titleLabel.setFont(font)
+        self.titleLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.titleLabel.setObjectName("titleLabel")
+        self.genericPinLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.titleLabel)
+        self.titleEdit = QtWidgets.QLineEdit(self.formLayoutWidget)
+        self.titleEdit.setObjectName("titleEdit")
+        self.genericPinLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.titleEdit)
+        self.subtitleEdit = QtWidgets.QPlainTextEdit(self.formLayoutWidget)
         self.subtitleEdit.setObjectName("subtitleEdit")
-        self.bodyLabel = QtWidgets.QLabel(self.centralwidget)
-        self.bodyLabel.setGeometry(QtCore.QRect(10, 120, 91, 31))
+        self.genericPinLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.subtitleEdit)
+        self.bodyLabel = QtWidgets.QLabel(self.formLayoutWidget)
+        self.bodyLabel.setMinimumSize(QtCore.QSize(82, 0))
         font = QtGui.QFont()
         font.setPointSize(8)
         font.setBold(True)
@@ -151,11 +340,12 @@ class Ui_MainWindow(object):
         self.bodyLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.bodyLabel.setWordWrap(True)
         self.bodyLabel.setObjectName("bodyLabel")
-        self.bodyEdit = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.bodyEdit.setGeometry(QtCore.QRect(110, 120, 321, 61))
+        self.genericPinLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.bodyLabel)
+        self.bodyEdit = QtWidgets.QPlainTextEdit(self.formLayoutWidget)
         self.bodyEdit.setObjectName("bodyEdit")
-        self.timeLabel = QtWidgets.QLabel(self.centralwidget)
-        self.timeLabel.setGeometry(QtCore.QRect(20, 240, 81, 20))
+        self.genericPinLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.bodyEdit)
+        self.timeLabel = QtWidgets.QLabel(self.formLayoutWidget)
+        self.timeLabel.setMinimumSize(QtCore.QSize(82, 0))
         font = QtGui.QFont()
         font.setPointSize(8)
         font.setBold(True)
@@ -163,11 +353,14 @@ class Ui_MainWindow(object):
         self.timeLabel.setFont(font)
         self.timeLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.timeLabel.setObjectName("timeLabel")
-        self.dateTimeEdit = QtWidgets.QDateTimeEdit(self.centralwidget)
-        self.dateTimeEdit.setGeometry(QtCore.QRect(110, 240, 321, 22))
+        self.genericPinLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.timeLabel)
+        self.dateTimeEdit = QtWidgets.QDateTimeEdit(self.formLayoutWidget)
         self.dateTimeEdit.setCalendarPopup(True)
         self.dateTimeEdit.setTimeSpec(QtCore.Qt.OffsetFromUTC)
         self.dateTimeEdit.setObjectName("dateTimeEdit")
+        self.genericPinLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.dateTimeEdit)
+        self.iconLabel = QtWidgets.QLabel(self.formLayoutWidget)
+        self.iconLabel.setMinimumSize(QtCore.QSize(82, 0))
         self.dateTimeEdit.setDateTime(QtCore.QDateTime.currentDateTime())
         self.dateTimeEdit.setMinimumDate(QDate.currentDate().addDays(-2))
         self.dateTimeEdit.setMaximumDate(QDate.currentDate().addDays(365))
@@ -188,35 +381,60 @@ class Ui_MainWindow(object):
         self.iconLabel.setFont(font)
         self.iconLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.iconLabel.setObjectName("iconLabel")
-        self.comingSoonSub = QtWidgets.QLabel(self.centralwidget)
-        self.comingSoonSub.setGeometry(QtCore.QRect(450, 244, 221, 40))
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.comingSoonSub.setFont(font)
-        self.comingSoonSub.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop)
-        self.comingSoonSub.setWordWrap(True)
-        self.comingSoonSub.setObjectName("comingSoonSub")
-        self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(110, 290, 321, 31))
-        self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
-        self.iconBox = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
-        self.iconBox.setContentsMargins(0, 0, 0, 0)
+        self.genericPinLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.iconLabel)
+        self.iconBox = QtWidgets.QHBoxLayout()
         self.iconBox.setObjectName("iconBox")
-        self.iconSelector = QtWidgets.QComboBox(self.horizontalLayoutWidget)
+        self.iconSelector = QtWidgets.QComboBox(self.formLayoutWidget)
         self.iconSelector.setEditable(True)
         self.iconSelector.setObjectName("iconSelector")
         self.iconSelector.addItems(iconsList)
         self.iconSelector.currentIndexChanged.connect(self.changeIconShow)
         self.iconBox.addWidget(self.iconSelector)
-        self.iconShow = QtWidgets.QLabel(self.horizontalLayoutWidget)
+        self.iconShow = QtWidgets.QLabel(self.formLayoutWidget)
         self.iconShow.setMaximumSize(QtCore.QSize(25, 25))
         self.iconShow.setText("")
+        # NOTE: Manually changed to resource_path()
         self.iconShow.setPixmap(QtGui.QPixmap(resource_path("NOTIFICATION_REMINDER.png")))
         self.iconShow.setObjectName("iconShow")
         self.iconBox.addWidget(self.iconShow)
+        self.genericPinLayout.setLayout(4, QtWidgets.QFormLayout.FieldRole, self.iconBox)
+        self.subtitleLabel = QtWidgets.QLabel(self.formLayoutWidget)
+        self.subtitleLabel.setMinimumSize(QtCore.QSize(82, 0))
+        font = QtGui.QFont()
+        font.setPointSize(8)
+        font.setBold(True)
+        font.setWeight(75)
+        self.subtitleLabel.setFont(font)
+        self.subtitleLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.subtitleLabel.setWordWrap(True)
+        self.subtitleLabel.setObjectName("subtitleLabel")
+        self.genericPinLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.subtitleLabel)
+        icon1 = QtGui.QIcon()
+        # NOTE: Manually changed to resource_path()
+        icon1.addPixmap(QtGui.QPixmap(resource_path("NOTIFICATION_REMINDER.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.calendarPin.addTab(self.genericPin, icon1, "")
+        self.tab_2 = QtWidgets.QWidget()
+        self.tab_2.setObjectName("tab_2")
+        self.label = QtWidgets.QLabel(self.tab_2)
+        self.label.setGeometry(QtCore.QRect(90, 110, 201, 121))
+        font = QtGui.QFont()
+        font.setPointSize(24)
+        self.label.setFont(font)
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setObjectName("label")
+        icon2 = QtGui.QIcon()
+        # NOTE: Manually changed to resource_path()
+        icon2.addPixmap(QtGui.QPixmap(resource_path("TIMELINE_CALENDAR.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.calendarPin.addTab(self.tab_2, icon2, "")
+        self.calendarPin.raise_()
+        self.pushButton.raise_()
+        self.line.raise_()
+        self.comingSoon.raise_()
+        self.comingSoonSub.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
+        self.calendarPin.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def changeIconShow(self):
@@ -226,6 +444,10 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Rebble Memos"))
         self.pushButton.setText(_translate("MainWindow", "Send to Timeline!"))
+        self.comingSoon.setText(_translate("MainWindow", "Pin History\n"
+                                                         "Coming Soon"))
+        self.comingSoonSub.setText(
+            _translate("MainWindow", "You\'ll be able to modify already sent memos directly from here!"))
         self.titleLabel.setText(_translate("MainWindow", "Memo Title"))
         self.subtitleLabel.setText(_translate("MainWindow", "Memo Subtitle (optional)"))
         self.bodyLabel.setText(_translate("MainWindow", "Memo Body (optional)"))
@@ -234,6 +456,10 @@ class Ui_MainWindow(object):
         self.iconLabel.setText(_translate("MainWindow", "Memo Icon"))
         self.comingSoonSub.setText(
             _translate("MainWindow", "You\'ll be able to modify already sent memos directly from here!"))
+        self.subtitleLabel.setText(_translate("MainWindow", "Memo Subtitle (optional)"))
+        self.calendarPin.setTabText(self.calendarPin.indexOf(self.genericPin), _translate("MainWindow", "Generic Pin"))
+        self.label.setText(_translate("MainWindow", "Coming Soon"))
+        self.calendarPin.setTabText(self.calendarPin.indexOf(self.tab_2), _translate("MainWindow", "Calendar Pin"))
 
     # This function checks if the title is not empty (since it's the only one required that can be empty at runtime -
     # the other mandatory field, time, is already set to CurrentTime)
@@ -257,11 +483,11 @@ class Ui_MainWindow(object):
             expected = self.dateTimeEdit.dateTime()
             expected.setOffsetFromUtc(offset)
 
-            functions.sendToTimeline(self.titleEdit.text(),
-                           self.subtitleEdit.toPlainText(),
-                           self.bodyEdit.toPlainText(),
-                           expected.toTimeSpec(Qt.OffsetFromUTC),
-                           self.iconSelector.currentText())
+            functions.test(self.titleEdit.text(),
+                                     self.subtitleEdit.toPlainText(),
+                                     self.bodyEdit.toPlainText(),
+                                     expected.toTimeSpec(Qt.OffsetFromUTC),
+                                     self.iconSelector.currentText())
 
 
 if __name__ == "__main__":

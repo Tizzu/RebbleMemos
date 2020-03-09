@@ -18,7 +18,6 @@ def randomString(stringLength=20):
     letters = string.ascii_lowercase
     return ''.join(random.choice(letters) for i in range(stringLength))
 
-
 # Populate the fields inside the JSON and send it to the server
 def sendToTimeline(title, subtitle, body, time, icon):
     # Uncomment if feature is implemented - Pin editing
@@ -34,18 +33,18 @@ def sendToTimeline(title, subtitle, body, time, icon):
               'X-User-Token': token}
     # This variable will become a JSON string, ready to be sent to the servers
     # the "time" field is built like this since it gives the local time with timezone 0 (instead of +01:00 or similar
-    data = {
-        "id": pinID,
-        "time": str(time.date().year()) + "-" + leadingZero(time.date().month()) + "-" + leadingZero(
-            time.date().day()) + "T" + leadingZero(time.time().hour()) + ":" + leadingZero(time.time().minute()) + ":00Z",
-        "layout": {
-            "type": "genericPin",
-            "title": title,
-            "subtitle": subtitle,
-            "body": body,
-            "tinyIcon": "system://images/" + icon
-        }
-    }
+    data = {}
+    data["id"] = pinID
+    data["time"] = str(time.date().year()) + "-" + leadingZero(time.date().month()) + "-" + leadingZero(
+        time.date().day()) + "T" + leadingZero(time.time().hour()) + ":" + leadingZero(time.time().minute()) + ":00Z"
+    layout = {}
+    layout["type"] = "genericPin"
+    layout["title"] = title
+    layout["subtitle"] = subtitle
+    layout["body"] = body
+    layout["tinyIcon"] = "system://images/" + icon
+
+    data["layout"] = layout
     response = requests.put(url, data=json.dumps(data), headers=header)
     if response.status_code == 200:
         alert = QMessageBox()
@@ -60,8 +59,9 @@ def sendToTimeline(title, subtitle, body, time, icon):
         alert.setText('Something went wrong, Try again. \n Error code:' + str(response.status_code))
         alert.exec_()
 
+
 # Since I didn't find anything about adding a leading zero via library functions/parameters I've made a quick number
-#to String converted where needed (Hours, Minutes, Days, Months)
+# to String converted where needed (Hours, Minutes, Days, Months)
 def leadingZero(number):
     if 0 <= number <= 9:
         return "0" + str(number)
@@ -73,19 +73,18 @@ def leadingZero(number):
 # test(), so whe you click on the "Send to Timeline" button a dialog box will appear with the data submitted
 # This function will also generate a JSON string in the terminal, so you can test the pin on an emulator
 def test(title, subtitle, body, time, icon):
-    data2 = {
-        "id": "pinID",
-        "time": "" + str(time.date().year()) + "-" + leadingZero(time.date().month()) + "-" + leadingZero(
-            time.date().day()) + "T" + leadingZero(time.time().hour()) + ":" + leadingZero(
-            time.time().minute()) + ":00Z",
-        "layout": {
-            "type": "genericPin",
-            "title": title,
-            "subtitle": subtitle,
-            "body": body,
-            "tinyIcon": "system://images/" + icon
-        }
-    }
+    data2 = {}
+    data2["id"] = pinID
+    data2["time"] = "" + str(time.date().year()) + "-" + leadingZero(time.date().month()) + "-" + leadingZero(
+        time.date().day()) + "T" + leadingZero(time.time().hour()) + ":" + leadingZero(time.time().minute()) + ":00Z"
+    layout = {}
+    layout["type"] = "genericPin"
+    layout["title"] = title
+    layout["subtitle"] = subtitle
+    layout["body"] = body
+    layout["tinyIcon"] = "system://images/" + icon
+
+    data2["layout"] = layout
     print(json.dumps(data2))
     alert = QMessageBox()
     alert.setWindowTitle('Rebble Memos')
