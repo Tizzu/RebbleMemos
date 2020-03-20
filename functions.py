@@ -18,11 +18,12 @@ def randomString(stringLength=20):
     letters = string.ascii_lowercase
     return ''.join(random.choice(letters) for i in range(stringLength))
 
+
 # Populate the fields inside the JSON and send it to the server
-def sendToTimeline(title, subtitle, body, time, icon):
+def sendToTimeline(title, subtitle, body, time, icon, duration=-1):
     # Uncomment if feature is implemented - Pin editing
     #  if pinID == "":
-    pinID = randomString()
+    pinID = "RMPC-" + randomString()
     # Uncomment if feature is implemented - Pin editing
     # else : pinID = oldPin
 
@@ -38,7 +39,11 @@ def sendToTimeline(title, subtitle, body, time, icon):
     data["time"] = str(time.date().year()) + "-" + leadingZero(time.date().month()) + "-" + leadingZero(
         time.date().day()) + "T" + leadingZero(time.time().hour()) + ":" + leadingZero(time.time().minute()) + ":00Z"
     layout = {}
-    layout["type"] = "genericPin"
+    if duration != -1:
+        data["duration"] = duration
+        layout["type"] = "calendarPin"
+    else:
+        layout["type"] = "genericPin"
     layout["title"] = title
     layout["subtitle"] = subtitle
     layout["body"] = body
@@ -56,7 +61,18 @@ def sendToTimeline(title, subtitle, body, time, icon):
         print(response)
         alert = QMessageBox()
         alert.setWindowTitle('Rebble Memos')
-        alert.setText('Something went wrong, Try again. \n Error code:' + str(response.status_code))
+        reason = ""
+        if response.status_code == 400:
+            reason = "INVALID_JSON"
+        elif response.status_code == 403:
+            reason = "INVALID_API_KEY"
+        elif response.status_code == 410:
+            reason = "INVALID_USER_TOKEN"
+        elif response.status_code == 429:
+            reason = "RATE_LIMIT_EXCEEDED"
+        elif response.status_code == 500:
+            reason = "SERVICE_UNAVAILABLE"
+        alert.setText('Something went wrong, Try again. \n Error: ' + reason)
         alert.exec_()
 
 
@@ -72,13 +88,17 @@ def leadingZero(number):
 # If you need to test your pin data without bothering the servers you can substitute sendToTimeline() inside memos.py with
 # test(), so whe you click on the "Send to Timeline" button a dialog box will appear with the data submitted
 # This function will also generate a JSON string in the terminal, so you can test the pin on an emulator
-def test(title, subtitle, body, time, icon):
+def test(title, subtitle, body, time, icon, duration=-1):
     data2 = {}
     data2["id"] = pinID
     data2["time"] = "" + str(time.date().year()) + "-" + leadingZero(time.date().month()) + "-" + leadingZero(
         time.date().day()) + "T" + leadingZero(time.time().hour()) + ":" + leadingZero(time.time().minute()) + ":00Z"
     layout = {}
-    layout["type"] = "genericPin"
+    if duration != -1:
+        data2["duration"] = duration
+        layout["type"] = "calendarPin"
+    else:
+        layout["type"] = "genericPin"
     layout["title"] = title
     layout["subtitle"] = subtitle
     layout["body"] = body
@@ -91,5 +111,5 @@ def test(title, subtitle, body, time, icon):
     alert.setText("Title: " + title + "\nSubtitle: " + subtitle + "\nBody: " + body + "\nTime/Date: " + str(
         time.date().year()) + "-" + leadingZero(time.date().month()) + "-" + leadingZero(
         time.date().day()) + "T" + leadingZero(time.time().hour()) + ":" + leadingZero(
-        time.time().minute()) + ":00Z" + "\nIcon: " + icon)
+        time.time().minute()) + ":00Z" + "\nIcon: " + icon + "\nDuration: " + str(duration))
     alert.exec_()

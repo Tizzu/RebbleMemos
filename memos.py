@@ -94,6 +94,7 @@ def resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 
 
+# TODO: Optimise code so it doesn't use multiple input Textbox for the same purpose on ditfferent tabs (Code is still in experimental mode!)
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -469,7 +470,6 @@ class Ui_MainWindow(object):
         self.timeEndCal.setMinimumDate(QDate.currentDate().addDays(-2))
         self.timeEndCal.setMaximumDate(QDate.currentDate().addDays(365))
         self.timeEndCal.setObjectName("timeEndCal")
-        # TODO: need to implement this function: differenceInMinutes = (end - start).total_seconds() / 60
         self.calendarPinLayout.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.timeEndCal)
         self.memoIconCalLabel = QtWidgets.QLabel(self.formLayoutWidget_2)
         self.memoIconCalLabel.setMinimumSize(QtCore.QSize(82, 0))
@@ -487,7 +487,7 @@ class Ui_MainWindow(object):
         self.memoIconCal.setEditable(True)
         self.memoIconCal.setObjectName("memoIconCal")
         self.memoIconCal.addItems(iconsList)
-        self.memoIconCal.currentIndexChanged.connect(self.changeMemoIconCal)
+        self.memoIconCal.currentIndexChanged.connect(self.changeIconShow)
         self.memoIconCalBox.addWidget(self.memoIconCal)
         self.memoIconCalDisplay = QtWidgets.QLabel(self.formLayoutWidget_2)
         self.memoIconCalDisplay.setMinimumSize(QtCore.QSize(25, 25))
@@ -518,13 +518,21 @@ class Ui_MainWindow(object):
         self.pinSelector.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    # These functions change the icon shown in their respective tab
-    # I know, they should be one, as soon as I figure out how to manage that they'll be one
+    # This function changes the icon shown in the selected tab
     def changeIconShow(self):
-        self.iconShow.setPixmap(QtGui.QPixmap(resource_path(self.iconSelector.currentText() + ".png")))
+        if self.pinSelector.currentIndex() == 0:
+            self.iconShow.setPixmap(QtGui.QPixmap(resource_path(self.iconSelector.currentText() + ".png")))
+        elif self.pinSelector.currentIndex() == 1:
+            self.memoIconCalDisplay.setPixmap(QtGui.QPixmap(resource_path(self.memoIconCal.currentText() + ".png")))
 
-    def changeMemoIconCal(self):
-        self.memoIconCalDisplay.setPixmap(QtGui.QPixmap(resource_path(self.memoIconCal.currentText() + ".png")))
+    # This functions computes the difference in seconds between two dates, useful for the calendar Pin duration
+    # since it asks for an event duration in minutes and not for a second date
+    def dateToMinutes(self, start, end):
+        startTime = start.toPyDateTime().timestamp()
+        endTime = end.toPyDateTime().timestamp()
+        totalDuration = int((endTime - startTime) / 60)
+        print(totalDuration)
+        return totalDuration
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -544,7 +552,8 @@ class Ui_MainWindow(object):
             _translate("MainWindow", "You\'ll be able to modify already sent memos directly from here!"))
         self.subtitleLabel.setText(_translate("MainWindow", "Memo Subtitle (optional)"))
         self.pinSelector.setTabText(self.pinSelector.indexOf(self.genericPin), _translate("MainWindow", "Generic Pin"))
-        self.pinSelector.setTabText(self.pinSelector.indexOf(self.calendarPin), _translate("MainWindow", "Calendar Pin"))
+        self.pinSelector.setTabText(self.pinSelector.indexOf(self.calendarPin),
+                                    _translate("MainWindow", "Calendar Pin"))
 
         self.titleCalLabel.setText(_translate("MainWindow", "Memo Title"))
         self.subtitleCalLabel.setText(_translate("MainWindow", "Memo Subtitle (optional)"))
@@ -552,37 +561,66 @@ class Ui_MainWindow(object):
         self.timeStartCalLabel.setText(_translate("MainWindow", "Event Start Time"))
         self.timeEndCalLabel.setText(_translate("MainWindow", "Event End Time"))
         self.memoIconCalLabel.setText(_translate("MainWindow", "Memo Icon"))
-        self.pinSelector.setTabText(self.pinSelector.indexOf(self.calendarPin), _translate("MainWindow", "Calendar Pin"))
+        self.pinSelector.setTabText(self.pinSelector.indexOf(self.calendarPin),
+                                    _translate("MainWindow", "Calendar Pin"))
 
     # This function checks if the title is not empty (since it's the only one required that can be empty at runtime -
     # the other mandatory field, time, is already set to CurrentTime)
     # if so it invokes functions(sendToTimeline) with data taken from the form
 
-    #TODO: Check which tab is selected and send data from that form
     def sendToTest(self):
-        if self.titleEdit.text() == "":
-            alert = QMessageBox()
-            alert.setWindowTitle('Rebble Memos')
-            icon = QtGui.QIcon()
-            # NOTE: Manually changed to resource_path()
-            icon.addPixmap(QtGui.QPixmap(resource_path("memo.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-            alert.setWindowIcon(icon)
-            alert.setText("Title required. \nPlease insert one and try again")
-            alert.setMinimumWidth(500)
-            alert.exec_()
-        else:
-            # For some reason the Timeline servers don't accept ISO time with an offset different from "Z", so you need
-            # to convert it to ISO time at UTC+0
-            now = QDateTime.currentDateTime()
-            offset = now.offsetFromUtc()
-            expected = self.dateTimeEdit.dateTime()
-            expected.setOffsetFromUtc(offset)
+        if self.pinSelector.currentIndex() == 0:
+            if self.titleEdit.text() == "":
+                self.alertMessage(1)
+            else:
+                # For some reason the Timeline servers don't accept ISO time with an offset different from "Z", so you need
+                # to convert it to ISO time at UTC+0
+                now = QDateTime.currentDateTime()
+                offset = now.offsetFromUtc()
+                expected = self.dateTimeEdit.dateTime()
+                expected.setOffsetFromUtc(offset)
 
-            functions.test(self.titleEdit.text(),
-                           self.subtitleEdit.toPlainText(),
-                           self.bodyEdit.toPlainText(),
-                           expected.toTimeSpec(Qt.OffsetFromUTC),
-                           self.iconSelector.currentText())
+                functions.sendToTimeline(self.titleEdit.text(),
+                               self.subtitleEdit.toPlainText(),
+                               self.bodyEdit.toPlainText(),
+                               expected.toTimeSpec(Qt.OffsetFromUTC),
+                               self.iconSelector.currentText())
+        else:
+            if self.titleCal.text() == "":
+                self.alertMessage(1)
+            else:
+                # For some reason the Timeline servers don't accept ISO time with an offset different from "Z", so you need
+                # to convert it to ISO time at UTC+0
+                now = QDateTime.currentDateTime()
+                offset = now.offsetFromUtc()
+                expected = self.timeStartCal.dateTime()
+                expected.setOffsetFromUtc(offset)
+
+                eventDuration = self.dateToMinutes(self.timeStartCal.dateTime(), self.timeEndCal.dateTime())
+
+                if eventDuration < 0:
+                    self.alertMessage(2)
+                else:
+                    functions.sendToTimeline(self.titleCal.text(),
+                                   self.subtitleCal.toPlainText(),
+                                   self.bodyCal.toPlainText(),
+                                   expected.toTimeSpec(Qt.OffsetFromUTC),
+                                   self.memoIconCal.currentText(),
+                                   eventDuration)
+
+    def alertMessage(self, reason):
+        alert = QMessageBox()
+        alert.setWindowTitle('Rebble Memos')
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(resource_path("memo.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        alert.setWindowIcon(icon)
+        if reason == 1:
+            alert.setText("Title required. \nPlease insert one and try again")
+        elif reason == 2:
+            alert.setText("End time cannot be before start time!")
+        alert.setMinimumWidth(500)
+        alert.exec_()
+
 
 
 if __name__ == "__main__":
